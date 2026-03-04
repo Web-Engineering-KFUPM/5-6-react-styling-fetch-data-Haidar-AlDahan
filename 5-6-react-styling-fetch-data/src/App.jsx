@@ -240,6 +240,16 @@ export default function App() {
      ========================================================= */
   useEffect(() => {
     // TODO 2.2: Implement filtering users here (see lab instructions)
+    if (!searchTerm.trim()) {
+      setFilteredUsers(users);
+      return;
+    }
+
+    const filtered = users.filter((user) =>
+      user.name.toLowerCase().includes(searchTerm.toLowerCase()),
+    );
+
+    setFilteredUsers(filtered);
   }, [searchTerm, users]);
 
   // Modal handlers (already complete)
