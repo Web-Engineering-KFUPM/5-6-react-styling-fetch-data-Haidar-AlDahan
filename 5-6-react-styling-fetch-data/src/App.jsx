@@ -204,6 +204,31 @@ export default function App() {
      ========================================================= */
   useEffect(() => {
     // TODO 2.1: Implement fetching users here (see lab instructions)
+    const fetchUsers = async () => {
+      setLoading(true);
+      setError(null);
+
+      try {
+        const response = await fetch(
+          "https://jsonplaceholder.typicode.com/users",
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch users");
+        }
+
+        const data = await response.json();
+
+        setUsers(data);
+        setFilteredUsers(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUsers();
   }, []);
 
   /* =========================================================
@@ -250,7 +275,11 @@ export default function App() {
           <UserList users={filteredUsers} onUserClick={handleUserClick} />
         )}
 
-        <UserModal show={showModal} user={selectedUser} onHide={handleCloseModal} />
+        <UserModal
+          show={showModal}
+          user={selectedUser}
+          onHide={handleCloseModal}
+        />
       </Container>
 
       {/* TODO 1.1: Set footer className EXACTLY as in lab instructions */}
