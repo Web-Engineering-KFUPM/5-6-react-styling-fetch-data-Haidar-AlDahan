@@ -210,7 +210,7 @@ export default function App() {
 
       try {
         const response = await fetch(
-          "https://jsonplaceholder.typicode.com/users"
+          "https://jsonplaceholder.typicode.com/users",
         );
 
         if (!response.ok) {
@@ -242,14 +242,13 @@ export default function App() {
     // TODO 2.2: Implement filtering users here (see lab instructions)
     if (searchTerm === "") {
       setFilteredUsers(users);
-      return;
+    } else {
+      const filtered = users.filter((user) =>
+        user.name.toLowerCase().includes(searchTerm.toLowerCase()),
+      );
+
+      setFilteredUsers(filtered);
     }
-
-    const filtered = users.filter((user) =>
-      user.name.toLowerCase().includes(searchTerm.toLowerCase()),
-    );
-
-    setFilteredUsers(filtered);
   }, [searchTerm, users]);
 
   // Modal handlers (already complete)
